@@ -15,24 +15,28 @@ from Node import Node
 from Colors import Colors
 from GameEngine import GameEngine
 
-# Liste mit Knoten
+# Empty List with Graphs
+graphs = [
+
+]
+
+# List with Nodes
 nodes = [
-    # Koordinaten (x,y); name
+    # Coordinates x,y and the name of this node
     Node(200,200, "test"),
     Node(200,250, "test2"),
     Node(100,350, "test4"),
 ]
 
-# Verbindungen der Knoten herstellen
+# Connecting the Nodes
 nodes[0].connect(nodes[0])
 nodes[0].connect(nodes[0])
 nodes[0].connect(nodes[0])
 nodes[0].connect(nodes[1])
 
-for x in nodes:
-    print(x.name, x.grade)
+# Generate a Graph "testG" and add it to the Graphs
 
-# Graph generieren und Knoten übergeben
 testG = Graph("testgraph", nodes)
+graphs.append(testG)
 
-GameEngine = GameEngine([testG], "Graph Testing", (800,600)).run()
+GameEngine = GameEngine(graphs, "Graph Testing", (800,600)).run()

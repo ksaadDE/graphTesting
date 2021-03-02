@@ -45,18 +45,18 @@ class GameEngine:
             allN += graph.getNodesCount()
         return (allN, allE)
     
-    def drawInfoText(self, screen):
-        arg0 = int(round(self.zoom))
-        gData = self.sumGraphData()
-        text="Zoom: {0} | Graphs count: {1} | Nodes: {2}: Edges: {3} ".format(arg0, len(self.objects), gData[0], gData[1])
-        color = Colors.WHITE
-        screenSize = screen.get_rect()
-        pos = pg.Vector2(screenSize.width/2-len(text)-100, 0)
-        fontSize = int(round(6*self.zoom+0.5))
-        #print(fontSize)
+    def drawAText(self,screen, text, pos, fontSize, color):
         font = pg.font.SysFont(None, fontSize)
         img = font.render(text, True, color)
         screen.blit(img, pos)
+    
+    def drawInfoText(self, screen):
+        fontSize = int(round(6*self.zoom+0.5))
+        screenSize = screen.get_rect()
+        gData = self.sumGraphData()
+        text="Zoom: {0} | Graphs count: {1} | Nodes: {2}: Edges: {3} ".format(int(round(self.zoom)), len(self.objects), gData[0], gData[1])
+        self.drawAText(screen, text, pg.Vector2(screenSize.width/2-len(text)-100-fontSize, 0), fontSize, Colors.WHITE)
+        self.drawAText(screen, "Moving: W,A,S,D | Zoom: Scroll Wheel", pg.Vector2(screenSize.width/2-len(text)-100-fontSize, screenSize.height-fontSize), fontSize, Colors.WHITE)
         
     def clearScreen(self, screen):
         screen.fill((0,0,0))
