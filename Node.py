@@ -22,6 +22,8 @@ class Node:
         self.dotSize = 3
         self.connectionWidth = 1
         self.zoom = 4
+        self.edges = []
+        self.calcEdges()
         
     def calcGrade(self):
         if len(self.connectedNodes) == 0:
@@ -31,6 +33,11 @@ class Node:
         for node in self.connectedNodes:
            i += 2 if (node == self) else 1
         return i
+    
+    def calcEdges(self):
+        p = self.getPos()
+        edges = [(p, node.getPos()) for node in self.connectedNodes]
+        self.edges = edges
     
     def getX(self):
         x = self.x
@@ -61,15 +68,20 @@ class Node:
         self.y = v.y
     def getPos(self):
         return pg.Vector2(self.getX(), self.getY())
+    
+    def getEdges(self):
+        return self.edges
         
     def connect(self, node):
         self.connectedNodes.append(node)
         self.grade = self.calcGrade()
+        self.calcEdges()
     
     def disconnect(self, node):
         if node in self.connectedNodes:
             self.connectedNodes.remove(node)
         self.grade = self.calcGrade()
+        self.calcEdges()
         return self.connectedNodes
     
     def drawNameText(self, screen):
@@ -98,12 +110,13 @@ class Node:
         pos = self.getPos()
         connectionWidth = self.connectionWidth
         if connectedNode is self:
-            #print(pos.x, pos.y)
+            # HERE'S a loop! :o
             height = (50 + 5*i+2)*0.25*self.zoom
             width = (35 + 5*i+2)*0.25*self.zoom
             pg.draw.ellipse(screen, Colors.BLUE, pg.Rect((pos.x-(width/2), pos.y-height), (width,height)), 2)
             #pg.draw.circle(screen, Colors.BLUE, pos, int(round(10+(2*i+2)*self.zoom)), 1) <--- old circles, if you want
         else:
+            # if connected to somewhere else :o
             pg.draw.line(screen, color, pos, connectedNode.getPos(), int(round(connectionWidth*self.zoom)))
     
     def draw(self, screen, cameraPos=[0,0]):

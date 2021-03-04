@@ -12,8 +12,10 @@ class Graph:
     def __init__(self, name, nodes=[]):
         self.name = name
         self.nodes = nodes
+        self.edges = []
+        self.edges = self.calcEdges()
+        self.grade = self.calcGrade()
         self.nodesCount = len(self.nodes)
-        self.edgesCount = self.getCalcEdgesCount()
     
     def draw(self, screen, cameraPos=[0,0]):
         i=0
@@ -29,14 +31,28 @@ class Graph:
             self.nodes[i].setZoom(zoom)
     def resetZoomForNodes(self,zoom=1):
         self.setZoomForNodes(zoom)
-        
-    def getCalcEdgesCount(self):
+    
+    def calcEdges(self):
+        self.edges = [node.getEdges() for node in self.nodes][0] # [ [tuple1, tuple2... tuplen] ]
+        self.edgesCount = len(self.edges)
+    
+    def getEdges(self):
+        return self.edges
+    
+    def getEdgesCount(self):
+        return self.edgesCount
+    
+    def calcGrade(self):
         e = 0
         for node in self.nodes:
             e+=node.grade
         return e
-    def getEdgesCount(self):
-        return self.edgesCount
+    
+    def getGrade(self):
+        return self.grade
 
     def getNodesCount(self):
         return self.nodesCount
+        
+    def getNodes(self):
+        return self.nodes
