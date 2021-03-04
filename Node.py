@@ -85,19 +85,24 @@ class Node:
         img = font.render(text, True, color)
         screen.blit(img, pos)
     
+    # Dot == Node "point" (the red Dot mostly)
     def drawDot(self, screen):
         color = self.color
         pos = self.getPos()
         dotSize = self.dotSize
         pg.draw.circle(screen, color, pos, int(round(dotSize*self.zoom)))
-        
+    
+    # Draws the connection either cirlce(s) or line
     def drawConnection(self, screen, connectedNode, i=0):
         color = self.connectedNodesColor
         pos = self.getPos()
         connectionWidth = self.connectionWidth
         if connectedNode is self:
-            #pg.draw.ellipse(screen, Colors.BLUE, pg.Rect((self.x-1.5,self.y-1.5), (3,3)))
-            pg.draw.circle(screen, Colors.BLUE, pos, int(round(10+(2*i+2)*self.zoom)), 1)
+            #print(pos.x, pos.y)
+            height = (50 + 5*i+2)*0.25*self.zoom
+            width = (35 + 5*i+2)*0.25*self.zoom
+            pg.draw.ellipse(screen, Colors.BLUE, pg.Rect((pos.x-(width/2), pos.y-height), (width,height)), 2)
+            #pg.draw.circle(screen, Colors.BLUE, pos, int(round(10+(2*i+2)*self.zoom)), 1) <--- old circles, if you want
         else:
             pg.draw.line(screen, color, pos, connectedNode.getPos(), int(round(connectionWidth*self.zoom)))
     
