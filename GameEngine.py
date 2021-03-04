@@ -8,6 +8,8 @@ import pygame as pg
 import os, sys
 from Colors import Colors
 from Button import Button
+from DFS import DFS
+from BFS import BFS
 
 class GameEngine:
     def __init__(self, objects, windowTitle="Test Graph", windowSize=(640,480)):
@@ -20,6 +22,7 @@ class GameEngine:
         self.cameraPosChanged = True
         self.buttons=[]
         self.buttons.append(Button((0,0, 100, 50), "DFS", Colors.TECHNO_BLUE, Colors.WHITE))
+        self.buttons.append(Button((0,70, 100, 50), "BFS", Colors.TECHNO_BLUE, Colors.WHITE))
         self.updatedBtns = False
     
     def setZoomForObjects(self):
@@ -80,7 +83,14 @@ class GameEngine:
                 mouse_pos = event.pos  # gets mouse position
                 for btn in self.buttons:
                     if btn.wasPressed(event):
-                        print(btn.text, "got hit")
+                       if btn.text.lower() == "dfs":
+                            graph = self.objects[0]
+                            dfs = DFS(graph)
+                            dfs.run(screen)
+                       if btn.text.lower() == "bfs":
+                            graph = self.objects[0]
+                            dfs = BFS(graph)
+                            dfs.run(screen)
     
     def drawObjectsLoop(self, screen):
         for obj in self.objects:
@@ -93,6 +103,7 @@ class GameEngine:
     def drawButtonsLoop(self,screen):
         for btn in self.buttons:
             btn.draw(screen)
+        
         if not self.updatedBtns:
             self.clearScreen(screen)
             self.updatedBtns = True

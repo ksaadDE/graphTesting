@@ -23,16 +23,27 @@ graphs = [
 # List with Nodes
 nodes = [
     # Coordinates x,y and the name of this node
-    Node(200,200, "test"),
-    Node(200,250, "test2"),
-    Node(100,350, "test4"),
+    Node(350,100, "root"), # 0
+    
+    Node(200,200, "n1"),    # 1
+    Node(500,200, "n2"),    # 2
+    
+    Node(150,300, "n1,1"),  # 3
+    Node(250,300, "n1,2"),  # 4
+    
+    Node(450,300, "n2,1"),  # 5
+    Node(550,300, "n2,2"),  # 6
 ]
 
 # Connecting the Nodes
-nodes[0].connect(nodes[0])
-nodes[0].connect(nodes[0])
-nodes[0].connect(nodes[0])
 nodes[0].connect(nodes[1])
+nodes[0].connect(nodes[2])
+
+nodes[1].connect(nodes[3])
+nodes[1].connect(nodes[4])
+
+nodes[2].connect(nodes[5])
+nodes[2].connect(nodes[6])
 
 # Generate a Graph "testG" and add it to the Graphs
 

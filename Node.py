@@ -36,8 +36,12 @@ class Node:
     
     def calcEdges(self):
         p = self.getPos()
-        edges = [(p, node.getPos()) for node in self.connectedNodes]
-        self.edges = edges
+        if len(self.edges) != len(self.connectedNodes):
+            self.edges = []
+        
+        for node in self.connectedNodes:
+            tpl = (p, node.getPos())
+            self.edges.append( (p, node.getPos()) )
     
     def getX(self):
         x = self.x
@@ -69,7 +73,7 @@ class Node:
     def getPos(self):
         return pg.Vector2(self.getX(), self.getY())
     
-    def getConnectedNodes():
+    def getConnectedNodes(self):
         return self.connectedNodes
     
     def getEdges(self):
