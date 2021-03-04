@@ -69,6 +69,9 @@ class Node:
     def getPos(self):
         return pg.Vector2(self.getX(), self.getY())
     
+    def getConnectedNodes():
+        return self.connectedNodes
+    
     def getEdges(self):
         return self.edges
         

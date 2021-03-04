@@ -13,5 +13,5 @@ class DFS:
         self.graph = graph
     
     def run(self):
-        for node in self.graph.nodes:
-            node.getNodes()
+        for node in self.graph.getConnectedNodes():
+            print(node)

@@ -7,6 +7,7 @@
 import pygame as pg
 import os, sys
 from Colors import Colors
+from Button import Button
 
 class GameEngine:
     def __init__(self, objects, windowTitle="Test Graph", windowSize=(640,480)):
@@ -17,6 +18,9 @@ class GameEngine:
         self.lastZoom = 4
         self.cameraPos = [0,0]
         self.cameraPosChanged = True
+        self.buttons=[]
+        self.buttons.append(Button((0,0, 100, 50), "DFS", Colors.TECHNO_BLUE, Colors.WHITE))
+        self.updatedBtns = False
     
     def setZoomForObjects(self):
         for graph in self.objects:
@@ -62,6 +66,36 @@ class GameEngine:
         
     def clearScreen(self, screen):
         screen.fill((0,0,0))
+    
+    def eventLoop(self, screen):
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()
+                sys.exit()
+            if event.type == pg.MOUSEWHEEL:
+                self.setZoom(event.y)
+                self.clearScreen(screen)
+            
+            if event.type == pg.MOUSEBUTTONDOWN:
+                mouse_pos = event.pos  # gets mouse position
+                for btn in self.buttons:
+                    if btn.wasPressed(event):
+                        print(btn.text, "got hit")
+    
+    def drawObjectsLoop(self, screen):
+        for obj in self.objects:
+            try:
+                obj.draw(screen, self.cameraPos)
+            except Exception as e:
+                print(e)
+                pass
+    
+    def drawButtonsLoop(self,screen):
+        for btn in self.buttons:
+            btn.draw(screen)
+        if not self.updatedBtns:
+            self.clearScreen(screen)
+            self.updatedBtns = True
     
     def run(self):
         # see if we can load more than standard BMP
@@ -109,21 +143,12 @@ class GameEngine:
             
             if self.cameraPosChanged:
                 self.clearScreen(screen)
-            for event in pg.event.get():
-                if event.type == pg.QUIT:
-                    pg.quit()
-                    sys.exit()
-                if event.type == pg.MOUSEWHEEL:
-                    self.setZoom(event.y)
-                    self.clearScreen(screen)
-                
-            for obj in self.objects:
-                    try:
-                        obj.draw(screen, self.cameraPos)
-                    except Exception as e:
-                        print(e)
-                        pass
-                        
+            
+            self.eventLoop(screen)
+            self.drawObjectsLoop(screen)
+            
+            self.drawButtonsLoop(screen)
+            
             self.drawInfoText(screen)
             #pg.display.flip()
 

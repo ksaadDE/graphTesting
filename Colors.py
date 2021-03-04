@@ -11,3 +11,5 @@ class Colors:
     BLUE=pg.Color(0,0,255)
     RED=pg.Color(255,0,0)
     WHITE=pg.Color(255,255,255)
+    SMOKY_BLACK=(26,21,0)
+    TECHNO_BLUE=(0,153,230)
