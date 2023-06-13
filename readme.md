@@ -1,12 +1,10 @@
 # Graph Testing (Game)
 #### Uses pygame, not intended for commercial or practical (=no production) use
-I made this only for learning about the Graph Theory and Algorithms related to it - so a bit "Research" for my self and testing if I understood it.
+I made this only to learn about the Graph Theory and Algorithms related to it. So it's a very tiny "research project", for my own and testing purposes, to test if I understand the theory properly.
 
+## Screenshots
 ![Graph Test Animated](/animated.gif?raw=true "Graph Test Animated")
-
-
-# TODO
-~~Currently no Algorithms for finding MST or something like that implemented, this will come soon.~~ (Fixed by Implementing BFS && DFS)
-
-# Other Screens (for example old ones)
 ![Graph Test](/screenshot.png?raw=true "Graph Test Screenshot")
+
+## Updates
+13.06.2023 - corrected sentences, removed old TODO from Readme
